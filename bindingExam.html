@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <style>
+      .strike-through{
+      text-decoration: underline;
+      color:blue;
+    }
+    .underLine{
+      color:aqua;
+      text-decoration: underline;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <a v-bind:href="myURL">네이버로 연결</a>
+      <img v-bind:src="myImg" >강아지같은 왕관</img>
+      <p v-bind:align="myLeft">텍스트 왼쪽 정렬</p>
+      <p v-bind:align="myRight">텍스트 오른쪽 정렬</p>
+      <p v-bind:align="myCenter">텍스트 가운데 정렬</p>
+      <p v-bind:style="{color: myColor}">인라인 스타일 글자색 빨간색</p>
+      <p v-bind:style="{fontSize: mySize}">인라인 스티일 글자크기 150% 크게</p>
+      <p v-bind:style="{color: myColor, backgroundColor: myBack}">인라인 스타일로 글자크기 150% 빨간색 배경 노랑색</p>
+      <p v-bind:style="{textDecoration: myDecoration, color: myColorB}">blue underline지정</p>
+      <p v-bind:class="myClass">blue underline, strike-through</p> 
+    </div>
+
+    <div id="app2">
+      <p>
+        <a v-bind:href="myLink">네이버로 연결
+        </a>
+      </p>
+      <p>
+        <img v-bind:src="myImage">강아지로 표기</img>
+      </p>
+      <p v-bind:align="leftAlign">텍스트 왼쪽 정렬</p>
+      <p v-bind:align="rightAlign">텍스트 오른쪽 정렬</p>
+      <p v-bind:align="centerAlign">텍스트 가운데 정렬</p>
+      <p v-bind:style="{color:rColor}">인라인 스타일 글자색 빨간색</p>
+      <p v-bind:style="{fontSize:fSize}">인라인 스타일 글자크기 150% 크게</p>
+      <p v-bind:class="underLine">aqua underline지정</p>
+      <!-- 복수의 클래스의 같은 타입의 스타일이 있다면 먼저 들어가있는 클래스가 먹힌다. -->
+      <p v-bind:class="[underLine, strikeClass]">aqua underline, strike-through</p> 
+    </div>
+    <script>
+      new Vue({
+        el:'#app2',
+        data: {
+          myLink: 'http://www.naver.com',
+          myImage: '왕관.png',
+          leftAlign: 'left',
+          rightAlign: 'right',
+          centerAlign: 'center',
+          rColor: 'red',
+          fSize: '150%',
+          underLine: 'underLine',
+          strikeClass: "strike-through"
+
+        }
+      })
+      new Vue({
+        el:'#app',
+        data:{
+          myURL:'http://www.naver.com',
+          myImg: '왕관.png',
+          myLeft: "left",
+          myRight: "right",
+          myCenter: "center",
+          myColor: "red",
+          mySize: "150%",
+          myBack: "yellow",
+          myDecoration: "underLine",
+          myColorB: "blue",
+          myClass: "strike-through"
+        }
+      })
+    </script>
+  </body>
+</html>

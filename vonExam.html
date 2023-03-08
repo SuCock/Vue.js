@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <h1>간단한 계산기</h1>
+    <div id="app">
+      <input type="number" v-model.number="count" />
+      <input type="number" v-model.number="count2" />
+      <br />
+      <button v-on:click="sum">더하기</button>
+      <button v-on:click="minus">빼기</button>
+      <button v-on:click="multiply">곱하기</button>
+      <button v-on:click="divide">나누기</button>
+      <p>결과는 {{num}} 입니다.</p>
+      <button @click="count10up(10)">10씩 증가</button>
+      <button @click="count10up(100)">100씩 증가</button>
+      <button @click="count10up(1000)">1000씩 증가</button>
+      <p>{{num}}</p>
+      <!-- <p>{{num2}}</p> -->
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          count: 0,
+          count2: 0,
+          num: 0,
+          num2: 0,
+        },
+        methods: {
+          sum: function () {
+            this.num = this.count + this.count2;
+          },
+          minus: function () {
+            this.num = this.count - this.count2;
+          },
+          multiply: function () {
+            this.num = this.count * this.count2;
+          },
+          divide: function () {
+            this.num = this.count / this.count2;
+          },
+          count10up: function (value) {
+            this.num += value;
+            // this.num2 += value;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
