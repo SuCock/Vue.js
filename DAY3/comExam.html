@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <h1>컴포넌트를 숫자로 출력</h1>
+    <div id="app">
+      <my-component v-for="item in myArray" :num="item"></my-component>
+    </div>
+    <script>
+      const MyCompenent = {
+        template: `<p>{{myText}}</p>`,
+        props: ["num"],
+        created: function () {
+          if (this.num % 2 == 0) {
+            this.myText = this.num + "은 짝수 입니다";
+          } else {
+            this.myText = this.num + "은 홀수 입니다";
+          }
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          myArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        },
+        components: {
+          "my-component": MyCompenent,
+        },
+      });
+    </script>
+    <hr />
+    <div id="app2">
+      <input v-model="name" />
+      <name_comp :today="200+15" :my-name="name"></name_comp>
+      <!-- dataList안에 있는 today, myName을 자식 컴포넌트에 binding -->
+      <name_comp v-bind="dataList"></name_comp>
+      <name_comp my-name="또또치" :today="100"></name_comp>
+      <name_comp my-name="12.5"></name_comp>
+    </div>
+
+    <script>
+      const nameComp = {
+        template: `<p> {{today+1}}, 나는 {{myName}}입니다.</p>`,
+        props: {
+          myName: String,
+          today: {
+            type: Number,
+            default: -1,
+          },
+        },
+      };
+      new Vue({
+        el: "#app2",
+        data: {
+          name: "",
+          array: {
+            myName: 22,
+            today: 205,
+          },
+          computed: {
+            dataList: function () {
+              return {
+                myName: this.name,
+                today: Date.niw(),
+              };
+            },
+          },
+        },
+        components: {
+          name_comp: nameComp,
+        },
+      });
+    </script>
+  </body>
+</html>

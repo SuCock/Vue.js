@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .donestyle {
+        text-decoration: line-through;
+        color: rgb(221, 171, 223);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ToDoList</h2>
+    <div id="app">
+      <div v-for="todo in todos">
+        <label>
+          <input type="checkbox" v-model="todo.done" />
+          <span :class="{donestyle:todo.done}">
+            {{todo.text}} (완료일 {{todo.deadLine}})
+          </span>
+          <button type="button" @click="plusDate(index)">완료일 연장</button>
+        </label>
+      </div>
+      <br />
+      <input
+        type="text"
+        v-model:trim="addText"
+        @keyup.enter="addToDo"
+        placeholder="할일 작성"
+      />
+      /
+      <input
+        type="text"
+        v-model:trim="addDate"
+        @keyup.enter="addToDo"
+        placeholder="완료일"
+      />
+      (YYYYMMDD 형식으로 입력)
+      <br />
+      <p><button @click="cleanToDo">처리 완료 삭제</button></p>
+      <p>{{todos.length}}건 중 {{remaining}}건 처리</p>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          addText: "",
+          addDate: "",
+          todos: [
+            { done: false, text: "빵사기", deadLine: "20191201" },
+            { done: false, text: "커피사기", deadLine: "20190702" },
+            { done: false, text: "공부하기", deadLine: "20230323" },
+            { done: false, text: "놀기", deadLine: "20230422" },
+            { done: false, text: "영화보기", deadLine: "20221231" },
+          ],
+        },
+        computed: {
+          remaining: function () {
+            return this.todos.filter(function (val) {
+              return val.done;
+            }).length;
+          },
+        },
+        //다 끝나고 함수 실행
+        methods: {
+          addToDo: function () {
+            if (this.addText && this.addDate) {
+              let year = this.addDate.substr(0, 4);
+              let month = this.addDate.substr(4, 2) - 1;
+              let day = this.addDate.substr(6, 2);
+              let date = new Date(year, month, day);
+              let temp =
+                "" +
+                date.getFullYear() +
+                (date.getMonth() + 1 < 9
+                  ? "0" + (date.getMonth() + 1)
+                  : date.getMonth() + 1) +
+                (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+              this.todos.push({
+                done: false,
+                text: this.addText,
+                deadLine: temp,
+              });
+              this.addText = "";
+              this.addDate = "";
+            }
+          },
+          cleanToDo: function () {
+            this.todos = this.todos.filter(function (val) {
+              //flase인 애들만 들고와서 새로운 배열로 만든다(true는 없다)
+              return val.done == false;
+            });
+          },
+          plusDate: function (index) {
+            let year = this.todos[index].deadLine.substr(0, 4);
+            let month = this.todos[index].deadLine.substr(4, 2) - 1;
+            let day = this.todos[index].deadLine.substr(6, 2);
+            let date = new Date(year, month, pasreInt(day) + 1);
+            let tmep =
+              "" +
+              date.getFullYear() +
+              (date.getMonth() + 1 < 9
+                ? "0" + (date.getMonth() + 1)
+                : date.getDate() + 1) +
+              (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+            this.todos[index].deadLine = temp;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
