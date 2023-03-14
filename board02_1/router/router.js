@@ -9,7 +9,7 @@ export default new VueRouter({
   // history -> #을 제외하고 SPA 구현하기 위한 모드
   // mode default 값 : hash
   mode: "hash",
-  routes: [
+  router: [
     {
       path: "/",
       name: "main",
